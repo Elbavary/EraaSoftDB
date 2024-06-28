@@ -1,3 +1,4 @@
+CREATE DATABASE Assignment
 CREATE TABLE Employees (
     ID INT PRIMARY KEY,
     Name VARCHAR UNIQUE,
@@ -10,7 +11,7 @@ ALTER TABLE Employees
 ALTER TABLE Employees
 	DROP COLUMN Salary;
 
-EXEC sp_rename 'Department', 'DeptName', 'COLUMN'
+EXEC sp_rename 'Employees.Department', 'Employees.DeptName', 'COLUMN'
 
 CREATE TABLE Projects (
     ProjectID INT,
@@ -26,7 +27,7 @@ CREATE TABLE Customers (
 )
 
 ALTER TABLE Customers
-	ADD CONSTRAINT FullName UNIQUE (FirstName, LastName);
+	ADD FullName AS (FirstName + '' + LastName) UNIQUE;
 
 CREATE TABLE Orders (
     OrderID INT,
@@ -40,4 +41,4 @@ CREATE SCHEMA Sales;
 ALTER SCHEMA Sales
 	TRANSFER dbo.Orders;
 
-EXEC sp_rename 'Orders', 'SalesOrders'
+EXEC sp_rename 'Sales.Orders', 'Sales.SalesOrders'
